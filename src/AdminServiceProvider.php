@@ -12,6 +12,9 @@ class AdminServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->loadViewsFrom(resource_path('views/vendor/admin'), 'admin');
         $this->loadTranslationsFrom(resource_path('lang/vendor/admin'), 'admin');
+
+        $this->loadViewsFrom(resource_path('views/vendor/desktop'), 'desktop');
+        $this->loadTranslationsFrom(resource_path('lang/vendor/desktop'), 'desktop');
     }
     public function register()
     {
