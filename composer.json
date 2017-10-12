@@ -1,0 +1,31 @@
+{
+    "name": "kaiwh/laravel-admin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "kaiwen",
+            "email": "test@test.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "intervention/image": "2.4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kaiwh\\Admin\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kaiwh\\Admin\\AdminServiceProvider"
+            ],
+            "aliases": {
+                "Language": "Kaiwh\\Admin\\Language\\Facades\\LanguageFacade",
+                "Image": "Kaiwh\\Admin\\Image\\Facades\\ImageFacade",
+                "Admin": "Kaiwh\\Admin\\Admin\\Facades\\AdminFacade"
+            }
+        }
+    }
+}
