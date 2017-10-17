@@ -20,12 +20,12 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Kaiwh\\Admin\\AdminServiceProvider"
+                "Kaiwh\\Admin\\Providers\\AdminServiceProvider"
             ],
             "aliases": {
-                "Language": "Kaiwh\\Admin\\Language\\Facades\\LanguageFacade",
-                "Image": "Kaiwh\\Admin\\Image\\Facades\\ImageFacade",
-                "Admin": "Kaiwh\\Admin\\Admin\\Facades\\AdminFacade"
+                "Language": "Kaiwh\\Admin\\Facades\\LanguageFacade",
+                "Image": "Kaiwh\\Admin\\Facades\\ImageFacade",
+                "Admin": "Kaiwh\\Admin\\Facades\\AdminFacade"
             }
         }
     }

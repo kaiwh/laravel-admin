@@ -10,13 +10,13 @@ class LanguageManager
     public function __construct()
     {
         $this->languages = [];
-        foreach (Config::get('language.languages') as $key => $value) {
+        foreach (Config::get('admin.languages') as $key => $value) {
             $this->languages[$key] = new Language($key, $value['title']);
         }
     }
     public function active()
     {
-        return $this->languages[Config::get('language.default')];
+        return $this->languages[Config::get('admin.default.language')];
     }
     public function all()
     {
