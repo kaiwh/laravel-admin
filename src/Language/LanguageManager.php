@@ -3,6 +3,7 @@
 namespace Kaiwh\Admin\Language;
 
 use Config;
+use Request;
 
 class LanguageManager
 {
@@ -16,7 +17,11 @@ class LanguageManager
     }
     public function active()
     {
-        return $this->languages[Config::get('admin.defaults.language')];
+        if (Request::session()->get('language')) {
+            return $this->languages[Request::session()->get('language')];
+        } else {
+            return $this->languages[Config::get('admin.defaults.language')];
+        }
     }
     public function all()
     {
