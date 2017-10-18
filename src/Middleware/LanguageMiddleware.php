@@ -22,7 +22,7 @@ class LanguageMiddleware
         if (Request::session()->get('language')) {
             App::setLocale(Request::session()->get('language'));
         } else {
-            App::setLocale(Config::get('admin.default.language'));
+            App::setLocale(Config::get('admin.defaults.language'));
         }
 
         return $next($request);
