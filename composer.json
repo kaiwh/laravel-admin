@@ -9,6 +9,9 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "php": ">=7.0.0",
+        "laravel/framework": "5.5.*",
+        "laravel/tinker": "~1.0",
         "intervention/image": "2.4.1",
         "kaiwh/laravel-validation": "~1.0"
     },
