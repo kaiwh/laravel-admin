@@ -9,15 +9,6 @@ use Storage;
 
 class ImageManager
 {
-    public function __construct()
-    {
-        $this->storage = Storage::disk($this->disk);
-        $this->setConfig();
-    }
-    /**
-     * @var $disk
-     */
-    protected $disk = 'cache';
     /**
      * @var $disk
      */
@@ -27,10 +18,12 @@ class ImageManager
      */
     protected $config;
 
-    protected function setConfig()
+    public function __construct($disk = 'cache')
     {
-        $this->config = Config::get('filesystems.disks.' . $this->disk);
+        $this->storage = Storage::disk($disk);
+        $this->config  = Config::get('filesystems.disks.' . $disk);
     }
+
     /**
      * 重制
      * @return url
