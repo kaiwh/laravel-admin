@@ -2,6 +2,7 @@
 
 namespace Kaiwh\Admin\Controllers;
 
+use Kaiwh\Admin\Repositories\AdminPermissionRepository;
 use Kaiwh\Admin\Repositories\AdminRepository;
 use Kaiwh\Admin\Requests\AdminStoreRequest;
 use Kaiwh\Admin\Requests\AdminUpdateRequest;
@@ -13,9 +14,13 @@ trait AdminControllerTrait
      * @var \Kaiwh\Admin\Repositories\AdminRepository $adminReposotory
      */
     private $adminRepository;
-    public function __construct(AdminRepository $adminRepository)
-    {
+    private $adminPermissionRepository;
+    public function __construct(
+        AdminRepository $adminRepository,
+        AdminPermissionRepository $adminPermissionRepository
+    ) {
         $this->adminRepository = $adminRepository;
+        $this->adminPermissionRepository = $adminPermissionRepository;
     }
     /**
      * 管理员列表
@@ -37,7 +42,7 @@ trait AdminControllerTrait
     public function create()
     {
 
-        $authorizes = $this->adminRepository->getAuthorizes();
+        $authorizes = $this->adminPermissionRepository->authorizes;
 
         return view('admin::admin.create')
             ->with('authorizes', $authorizes);
@@ -67,7 +72,7 @@ trait AdminControllerTrait
             return Redirect::route('admin.admin.index');
         }
 
-        $authorizes = $this->adminRepository->getAuthorizes();
+        $authorizes = $this->adminPermissionRepository->authorizes;
 
         return view('admin::admin.edit')
             ->with('admin', $admin)

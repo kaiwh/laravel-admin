@@ -76,11 +76,11 @@
 				            	<div class="form-group">
 									<label class="col-sm-2 control-label">{{ trans('admin::admin.permission.index') }}：</label>
 									<div class="col-sm-6">
-										<div class="well well-sm" style="height: 150px; overflow: auto;">
+										<div class="well well-sm" style="height: 300px; overflow: auto;">
 											@foreach($authorizes as $value)
 											<div class="checkbox">
 												<label>
-													<input name="permission[index][]" value="{{ $value['value'] }}" type="checkbox" {{ isset($permission['index'])  && in_array($value['value'],$permission['index'])?'checked':'' }} >
+													<input name="permission[]" value="{{ $value['value'] }}" type="checkbox" {{ in_array($value['value'],$permission)?'checked':'' }} >
 													{{ $value['title'] }}
 												</label>
 											</div>
@@ -93,87 +93,6 @@
 	              						<a href="javascript:;" onclick="$(this).parents('.form-group').find(':checkbox').prop('checked', false);">取消选择</a>
 	              					</div>	
 	          					</div>
-								<div class="form-group">
-									<label class="col-sm-2 control-label">{{ trans('admin::admin.permission.show') }}：</label>
-									<div class="col-sm-6">
-										<div class="well well-sm" style="height: 150px; overflow: auto;">
-											@foreach($authorizes as $value)
-											<div class="checkbox">
-												<label>
-													<input name="permission[show][]" value="{{ $value['value'] }}" type="checkbox" {{ isset($permission['show'])  && in_array($value['value'],$permission['show'])?'checked':'' }} >
-													{{ $value['title'] }}
-												</label>
-											</div>
-											@endforeach
-		                              	</div>
-	              					</div>
-	              					<div class="col-sm-4">
-	              						<a href="javascript:;" onclick="$(this).parents('.form-group').find(':checkbox').prop('checked', true);">全选</a>
-	              						 / 
-	              						<a href="javascript:;" onclick="$(this).parents('.form-group').find(':checkbox').prop('checked', false);">取消选择</a>
-	              					</div>	
-	          					</div>
-	          					<div class="form-group">
-									<label class="col-sm-2 control-label">{{ trans('admin::admin.permission.create') }}：</label>
-									<div class="col-sm-6">
-										<div class="well well-sm" style="height: 150px; overflow: auto;">
-											@foreach($authorizes as $value)
-											<div class="checkbox">
-												<label>
-													<input name="permission[create][]" value="{{ $value['value'] }}" type="checkbox" {{ isset($permission['create'])  && in_array($value['value'],$permission['create'])?'checked':'' }} >
-													{{ $value['title'] }}
-												</label>
-											</div>
-											@endforeach
-		                              	</div>
-	              					</div>
-	              					<div class="col-sm-4">
-	              						<a href="javascript:;" onclick="$(this).parents('.form-group').find(':checkbox').prop('checked', true);">全选</a>
-	              						 / 
-	              						<a href="javascript:;" onclick="$(this).parents('.form-group').find(':checkbox').prop('checked', false);">取消选择</a>
-	              					</div>	
-	          					</div>
-	          					<div class="form-group">
-									<label class="col-sm-2 control-label">{{ trans('admin::admin.permission.edit') }}：</label>
-									<div class="col-sm-6">
-										<div class="well well-sm" style="height: 150px; overflow: auto;">
-											@foreach($authorizes as $value)
-											<div class="checkbox">
-												<label>
-													<input name="permission[edit][]" value="{{ $value['value'] }}" type="checkbox" {{ isset($permission['edit'])  && in_array($value['value'],$permission['edit'])?'checked':'' }} >
-													{{ $value['title'] }}
-												</label>
-											</div>
-											@endforeach
-		                              	</div>
-	              					</div>
-	              					<div class="col-sm-4">
-	              						<a href="javascript:;" onclick="$(this).parents('.form-group').find(':checkbox').prop('checked', true);">全选</a>
-	              						 / 
-	              						<a href="javascript:;" onclick="$(this).parents('.form-group').find(':checkbox').prop('checked', false);">取消选择</a>
-	              					</div>	
-	          					</div>
-	          					<div class="form-group">
-									<label class="col-sm-2 control-label">{{ trans('admin::admin.permission.destroy') }}：</label>
-									<div class="col-sm-6">
-										<div class="well well-sm" style="height: 150px; overflow: auto;">
-											@foreach($authorizes as $value)
-											<div class="checkbox">
-												<label>
-													<input name="permission[destroy][]" value="{{ $value['value'] }}" type="checkbox" {{ isset($permission['destroy'])  && in_array($value['value'],$permission['destroy'])?'checked':'' }} >
-													{{ $value['title'] }}
-												</label>
-											</div>
-											@endforeach
-		                              	</div>
-	              					</div>
-	              					<div class="col-sm-4">
-	              						<a href="javascript:;" onclick="$(this).parents('.form-group').find(':checkbox').prop('checked', true);">全选</a>
-	              						 / 
-	              						<a href="javascript:;" onclick="$(this).parents('.form-group').find(':checkbox').prop('checked', false);">取消选择</a>
-	              					</div>	
-	          					</div>
-
 							</div>
 	       				</div>
 	       			</form>

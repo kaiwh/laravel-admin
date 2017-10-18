@@ -2,7 +2,6 @@
 
 namespace Kaiwh\Admin\Repositories;
 
-use Config;
 use DB;
 use Kaiwh\Admin\Models\Admin;
 
@@ -41,16 +40,10 @@ class AdminRepository
             $admin->password      = bcrypt($data['password']);
             $admin->administrator = !empty($data['administrator']) ? 1 : 0;
 
-            $permission = [
-                'index'   => [],
-                'show'    => [],
-                'create'  => [],
-                'edit'    => [],
-                'destroy' => [],
-            ];
+            $permission = [];
 
             if (!empty($data['permission'])) {
-                $permission = array_merge($permission, $data['permission']);
+                $permission = $data['permission'];
             }
 
             $admin->permission = serialize($permission);
@@ -74,16 +67,10 @@ class AdminRepository
                 $admin->password = bcrypt($data['password']);
             }
 
-            $permission = [
-                'index'   => [],
-                'show'    => [],
-                'create'  => [],
-                'edit'    => [],
-                'destroy' => [],
-            ];
+            $permission = [];
 
             if (!empty($data['permission'])) {
-                $permission = array_merge($permission, $data['permission']);
+                $permission = $data['permission'];
             }
 
             $admin->permission = serialize($permission);
@@ -109,26 +96,5 @@ class AdminRepository
     public function truncate()
     {
         $this->admin->truncate();
-    }
-
-    /**
-     * 须授权的列表
-     *
-     * @return Arrry
-     */
-    public function getAuthorizes()
-    {
-
-        $authorizes = Config::get('admin.authorizes');
-
-        $results = [];
-        foreach ($authorizes as $key => $value) {
-            $results[] = [
-                'title' => trans($value),
-                'value' => $key,
-            ];
-        }
-
-        return $results;
     }
 }
