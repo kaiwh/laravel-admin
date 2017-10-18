@@ -43,7 +43,7 @@ class ImageManager
 
         if (!$filename || !is_file($old_filename)) {
 
-            $filename = Config::get('admin.placeholder');
+            $filename = Config::get('admin.defaults.placeholder');
 
             $old_filename = storage_path($filename);
 
@@ -77,7 +77,7 @@ class ImageManager
      */
     public function placeholder($width = null, $height = null, $watermark = [])
     {
-        return $this->resize(Config::get('admin.placeholder'), $width, $height, $watermark);
+        return $this->resize(Config::get('admin.defaults.placeholder'), $width, $height, $watermark);
     }
     /**
      * 删除缓存

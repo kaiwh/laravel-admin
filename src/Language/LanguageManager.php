@@ -16,7 +16,7 @@ class LanguageManager
     }
     public function active()
     {
-        return $this->languages[Config::get('admin.default.language')];
+        return $this->languages[Config::get('admin.defaults.language')];
     }
     public function all()
     {

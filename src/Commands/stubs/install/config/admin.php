@@ -5,7 +5,7 @@ return [
     | 默认
     |--------------------------------------------------------------------------
      */
-    'default'    => [
+    'defaults'    => [
         'language'    => 'zh_CN',
         'placeholder' => 'placeholder.png',
     ],
