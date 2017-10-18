@@ -25,18 +25,23 @@ class AdminPermissionRepository
 
     public function __construct()
     {
-        $this->ignores = Config::get('admin.permission.ignores');
+        $this->ignores        = Config::get('admin.permission.ignores');
+        $this->administrators = Config::get('admin.permission.administrators');
         $this->setAuthorizes();
         $this->setCurrentController();
     }
     /**
      * 是否具备权限的
      *
+     * @param administrator 是否为超级管理员
+     * @param permission 具备的权限
      * @return Bool
      */
-    public function permission($permission)
+    public function permission($administrator, $permission)
     {
-        if (in_array($this->currentController, $permission)) {
+        if (in_array($this->currentController, $this->administrators)) {
+            return false;
+        } elseif (in_array($this->currentController, $permission)) {
             return true;
         } else {
             return false;
@@ -72,7 +77,7 @@ class AdminPermissionRepository
         foreach ($files as $key => $value) {
             $str = Str::snake(Str::replaceLast('Controller.php', '', basename($value)));
 
-            if (!in_array($str, Config::get('admin.permission.ignores'))) {
+            if (!in_array($str, $this->ignores) && !in_array($str, $this->administrators)) {
                 $authorizes[] = [
                     'title' => trans('admin::' . $str . '.heading.catalog'),
                     'value' => $str,

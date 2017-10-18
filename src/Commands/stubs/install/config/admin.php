@@ -15,12 +15,14 @@ return [
     |--------------------------------------------------------------------------
      */
     'permission' => [
-        'ignores' => [
-            // 'admin',
-            // 'image',
-            // 'home',
-            // 'language',
-            // 'login',
+        'ignores'       => [
+            'image',
+            'home',
+            'language',
+            'login',
+        ],
+        'administrators' => [
+            'admin',
         ],
     ],
     /*

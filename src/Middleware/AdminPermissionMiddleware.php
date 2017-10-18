@@ -25,7 +25,7 @@ class AdminPermissionMiddleware
     {
         $guard = 'admin';
 
-        if (Auth::guard($guard)->user()->administrator) {
+        if (Auth::guard($guard)->check() && Auth::guard($guard)->user()->administrator) {
             return $next($request);
         }
 
@@ -33,7 +33,7 @@ class AdminPermissionMiddleware
             return $next($request);
         }
 
-        if ($this->adminPermissionRepository->permission(Auth::guard($guard)->user()->permission())) {
+        if ($this->adminPermissionRepository->permission(Auth::guard($guard)->user()->administrator, Auth::guard($guard)->user()->permission())) {
             return $next($request);
         }
 
