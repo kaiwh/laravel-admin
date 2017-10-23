@@ -1,51 +1,22 @@
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <button aria-hidden="true" class="close" data-dismiss="modal" type="button">
-                ×
-            </button>
-            <h4 class="modal-title">
-                @Lang('admin::image.heading.title')
-            </h4>
+            <button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+            <h4 class="modal-title">@Lang('admin::image.heading.title')</h4>
         </div>
         <div class="modal-body">
             <div class="modal-image-content">
                 <div class="row">
                 	{{-- 路径 --}}
-					<div class="col-sm-5">
-						<ul class="breadcrumb" style="line-height:34px;">
-							<li></li>
-							<li><a href="{{ route('admin.image.index',['target'=>Request::get('target'),'thumb'=>Request::get('thumb')]) }}" data-manager="load" >image</a></li>
-							@if(Request::get('directory'))
-							<li><a href="{{ route('admin.image.index',['directory'=>Request::get('directory'),'target'=>Request::get('target'),'thumb'=>Request::get('thumb')]) }}" data-manager="load" >{{ Request::get('directory') }}</a></li>
-							@endif
-						</ul>
-					</div>
-					{{-- END 路径 --}}
-                    <div class="col-sm-7 text-right">
-                    	
-                    	<a class="btn btn-info" role="button" data-toggle="collapse" href="#collapsefolders" aria-expanded="false" aria-controls="collapsefolders" >
-                        	<i class="fa fa-folder"></i> @Lang('admin::image.text.folders')
-                        </a>
-                        @if(!Request::get('directory'))
-                        <a class="btn btn-warning" role="button" id="button-folder" type="button">
-                            <i class="fa fa-folder-o"></i> @Lang('admin::image.button.folder')
-                        </a>
-                        @else
-                        <a class="btn btn-warning" data-manager="load" href="{{ route('admin.image.index',['target'=>Request::get('target'),'thumb'=>Request::get('thumb')]) }}">
-                            <i class="fa fa-reply"></i> @Lang('admin::image.button.back')
-                        </a>
+					<div class="col-sm-12 text-right">
+						@if(!Request::get('directory'))
+                        <a class="btn btn-warning" role="button" id="button-folder" type="button" data-toggle="tooltip" title="@Lang('admin::image.button.folder')"><i class="fa fa-folder-o"></i></a>
                         @endif
-                        <a class="btn btn-primary" role="button" id="button-upload" type="button">
-                            <i class="fa fa-upload"></i> @Lang('admin::image.button.upload')
-                        </a>
-                        <a class="btn btn-info" role="button" href="{{ Request::get('directory')?route('admin.image.index',['directory'=>Request::get('directory'),'target'=>Request::get('target'),'thumb'=>Request::get('thumb')]):route('admin.image.index',['target'=>Request::get('target'),'thumb'=>Request::get('thumb')]) }}" id="button-refresh" title="" data-manager="load">
-                            <i class="fa fa-refresh"></i> @Lang('admin::image.button.refresh')
-                        </a>
-                        
-                       
-                        
-                    </div>
+                        <a class="btn btn-primary" role="button" id="button-upload" type="button"  data-toggle="tooltip" title="@Lang('admin::image.button.upload')"><i class="fa fa-upload"></i></a>
+                        <a class="btn btn-info" role="button" data-toggle="tooltip" onclick="$('#collapsefolders').collapse('toggle')" href="javascript:;" aria-expanded="false" aria-controls="collapsefolders" title="@Lang('admin::image.text.folders')"><i class="fa fa-folder"></i></a>
+                        <a class="btn btn-default" role="button" href="{{ Request::get('directory')?route('admin.image.index',['directory'=>Request::get('directory'),'target'=>Request::get('target'),'thumb'=>Request::get('thumb')]):route('admin.image.index',['target'=>Request::get('target'),'thumb'=>Request::get('thumb')]) }}" id="button-refresh" data-toggle="tooltip" title="@Lang('admin::image.button.refresh')" data-manager="load" ><i class="fa fa-refresh"></i></a>
+                        <a class="btn btn-default" data-manager="load" href="{{ route('admin.image.index',['target'=>Request::get('target'),'thumb'=>Request::get('thumb')]) }}"  data-toggle="tooltip" title="@Lang('admin::image.button.back')"><i class="fa fa-level-up"></i></a>
+					</div>
         		</div>
         		<hr/>
         		

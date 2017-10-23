@@ -1,5 +1,5 @@
 <li>
-    <a href="{{ route('admin') }}"><i class="fa fa-dashboard fa-fw"></i><span>{{ trans('admin::home.heading.title') }}</span></a>
+    <a href="{{ route('admin') }}"><i class="fa fa-dashboard fa-fw"></i><span>{{ trans('admin::home.heading.catalog') }}</span></a>
 </li>
 
 {{-- 
