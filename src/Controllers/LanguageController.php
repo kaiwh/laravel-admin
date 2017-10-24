@@ -2,11 +2,12 @@
 
 namespace Kaiwh\Admin\Controllers;
 
+use Kaiwh\Admin\Controllers\Controller;
 use Language;
 use Redirect;
 use Request;
 
-trait LanguageControllerTrait
+class LanguageController extends Controller
 {
     /**
      * 编辑

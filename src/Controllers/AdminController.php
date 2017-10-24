@@ -2,13 +2,14 @@
 
 namespace Kaiwh\Admin\Controllers;
 
+use Kaiwh\Admin\Controllers\Controller;
 use Kaiwh\Admin\Repositories\AdminPermissionRepository;
 use Kaiwh\Admin\Repositories\AdminRepository;
 use Kaiwh\Admin\Requests\AdminStoreRequest;
 use Kaiwh\Admin\Requests\AdminUpdateRequest;
 use Redirect;
 
-trait AdminControllerTrait
+class AdminController extends Controller
 {
     /**
      * @var \Kaiwh\Admin\Repositories\AdminRepository $adminReposotory
@@ -19,7 +20,7 @@ trait AdminControllerTrait
         AdminRepository $adminRepository,
         AdminPermissionRepository $adminPermissionRepository
     ) {
-        $this->adminRepository = $adminRepository;
+        $this->adminRepository           = $adminRepository;
         $this->adminPermissionRepository = $adminPermissionRepository;
     }
     /**

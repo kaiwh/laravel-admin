@@ -7,9 +7,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Validator;
 use Image;
+use Kaiwh\Admin\Controllers\Controller;
 use Storage;
 
-trait ImageControllerTrait
+class ImageController extends Controller
 {
     public function __construct()
     {
@@ -39,7 +40,6 @@ trait ImageControllerTrait
             $lastModified[] = $this->storage->lastModified($value);
         }
         array_multisort($lastModified, SORT_DESC, SORT_STRING, $directories);
-
 
         $files = $this->storage->files($request->get('directory'));
 
