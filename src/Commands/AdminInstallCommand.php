@@ -12,7 +12,8 @@ class AdminInstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'admin:install';
+    protected $signature = 'admin:install
+                            {--migrate : Update database?}';
 
     /**
      * The console command description.
@@ -35,8 +36,10 @@ class AdminInstallCommand extends Command
         );
         $this->call('storage:link');
 
-        $this->call('migrate', ['--path' => str_replace(base_path(), '', __DIR__) . '/../../migrations']);
-        $this->call('db:seed', ['--class' => \Kaiwh\Admin\Seeds\InitAdminSeeder::class]);
+        if ($this->option('migrate')) {
+            $this->call('migrate', ['--path' => str_replace(base_path(), '', __DIR__) . '/../../migrations']);
+            $this->call('db:seed', ['--class' => \Kaiwh\Admin\Seeds\InitAdminSeeder::class]);
+        }
     }
 
 }
