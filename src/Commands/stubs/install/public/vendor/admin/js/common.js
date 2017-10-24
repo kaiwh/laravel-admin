@@ -81,6 +81,10 @@ $(document).ready(function() {
     $('[data-toggle=\'tooltip\']').on('remove', function() {
         $(this).tooltip('destroy');
     });
+    
+    $(document).on('click','[data-toggle=\'tooltip\']',function(e){
+        $('body > .tooltip').remove();
+    });
 });
 
 // Autocomplete */

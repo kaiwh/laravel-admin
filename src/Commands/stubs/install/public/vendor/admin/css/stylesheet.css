@@ -615,3 +615,20 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
     visibility: unset;
 }
 /* Menu Fix For System -> Layout -> Banner */
+
+.image-manager{
+	position: relative;
+}
+.image-manager .image-manager-delete{
+	display: none;
+	position: absolute;
+	bottom:20px;
+	right: 15px;
+	padding: 5px;
+	background-color: rgba(0,0,0,.5);
+	color: #FFF;
+	border-radius: 3px;
+}
+.image-manager:hover .image-manager-delete{
+	display: block;
+}

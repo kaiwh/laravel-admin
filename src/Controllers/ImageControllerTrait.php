@@ -3,6 +3,8 @@
 namespace Kaiwh\Admin\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Validator;
 use Image;
 use Storage;
@@ -11,13 +13,9 @@ trait ImageControllerTrait
 {
     public function __construct()
     {
-        $this->storage = Storage::disk($this->disk);
+        $this->storage = Storage::disk('image');
         $this->path    = substr($this->storage->getAdapter()->getPathPrefix(), strlen(storage_path()) + 1);
     }
-    /**
-     * @var $disk
-     */
-    protected $disk = 'image';
     /**
      * @var use Storage;
      */
@@ -34,23 +32,71 @@ trait ImageControllerTrait
      */
     public function index(Request $request)
     {
-        $directories = $this->storage->directories();
+        $directories = $this->storage->directories($request->get('directory'));
 
-        $results = $this->storage->files($request->get('directory'));
+        $lastModified = [];
+        foreach ($directories as $value) {
+            $lastModified[] = $this->storage->lastModified($value);
+        }
+        array_multisort($lastModified, SORT_DESC, SORT_STRING, $directories);
+
+
+        $files = $this->storage->files($request->get('directory'));
+
+        $lastModified = [];
+        foreach ($files as $value) {
+            $lastModified[] = $this->storage->lastModified($value);
+        }
+
+        array_multisort($lastModified, SORT_DESC, SORT_STRING, $files);
+
+        $images = array_merge($directories, $files);
 
         $files = [];
 
-        foreach ($results as $key => $value) {
-            $files[] = [
-                'file'     => $value,
-                'filename' => $this->path . $value,
-                'thumb'    => Image::resize($this->path . $value, 100, 100),
-            ];
+        foreach ($images as $key => $value) {
+            if (is_dir(storage_path($this->path . $value))) {
+                $files[] = [
+                    'type'      => 'directory',
+                    'directory' => $value,
+                    'name'      => implode(' ', str_split(basename($value), 14)),
+                ];
+            } elseif (is_file(storage_path($this->path . $value))) {
+                $files[] = [
+                    'type'     => 'image',
+                    'file'     => $value,
+                    'filename' => $this->path . $value,
+                    'thumb'    => Image::resize($this->path . $value, 100, 100),
+                ];
+            }
+
         }
 
+        $total   = count($files); //记录总条数
+        $perPage = 16; //每页的记录数 ( 常量 )
+
+        if ($request->has('page')) {
+            $current_page = $request->input('page');
+            $current_page = $current_page <= 0 ? 1 : $current_page;
+        } else {
+            $current_page = 1;
+        }
+        if ($request->get('directory')) {
+            $path = route('admin.image.index', ['directory' => $request->get('directory')]);
+        } else {
+            $path = Paginator::resolveCurrentPath();
+        }
+
+        $item = array_slice($files, ($current_page - 1) * $perPage, $perPage); //注释1
+
+        $paginator = new LengthAwarePaginator($item, $total, $perPage, $current_page, [
+            'path'     => $path, //注释2
+            'pageName' => 'page',
+        ]);
+
         return view('admin::image.index')
-            ->with('directories', $directories)
-            ->with('files', $files);
+        // ->with('directories', $directories)
+        ->with('files', $paginator);
     }
     /**
      * 上传文件
@@ -61,7 +107,7 @@ trait ImageControllerTrait
     {
         $json = [];
         foreach ($request->file('file') as $file) {
-            Storage::disk($this->disk)->putFile($request->get('directory'), $file);
+            $this->storage->putFile($request->get('directory'), $file);
         }
 
         $json['success'] = trans('admin::image.success.upload');
@@ -85,8 +131,12 @@ trait ImageControllerTrait
         }
 
         if (!$json) {
-
-            $result = Storage::disk($this->disk)->makeDirectory($request->get('folder'));
+            $dir = '';
+            if ($request->get('directory')) {
+                $dir = $request->get('directory') . '/';
+            }
+            $dir .= $request->get('folder');
+            $result = $this->storage->makeDirectory($dir);
 
             if ($result) {
                 $json['success'] = trans('admin::image.success.folder');
